@@ -10,7 +10,6 @@ st.set_page_config(page_title="Premium Valuation & Tax Hub", layout="wide", page
 st.title("📈 Ecosistema Escala Corporate: Premium Valuation & Tax Hub")
 st.caption("Módulo Avanzado de Valoración de Activos e Inteligencia Fiscal para Alta Gerencia y Comités Ejecutivos (Normas NIIF / IFRS y LRTI)")
 
-# CORRECCIÓN AQUÍ: Usamos st.markdown y unsafe_allow_html en inglés estricto
 st.markdown("""
     <style>
     .metric-box {background-color: #f8f9fa; border-left: 5px solid #1f77b4; padding: 15px; border-radius: 4px; margin-bottom: 15px;}
@@ -77,7 +76,7 @@ tab1, tab2, tab3, tab4 = st.tabs([
 # ---------------------------------------------------------------------
 with tab1:
     st.header("🏢 Registro y Revaluación de Activos bajo NIIF")
-    st.markdown("<p class='section-desc'>Cumplimiento estricto con NIC 16, NIC 40 y NIC 2 para auditorías de salida a bolsa.</p>", unsafe_allowed_html=True)
+    st.markdown("<p class='section-desc'>Cumplimiento estricto con NIC 16, NIC 40 y NIC 2 para auditorías de salida a bolsa.</p>", unsafe_allow_html=True)
     
     col1, col2 = st.columns([1, 2])
     with col1:
@@ -134,7 +133,7 @@ with tab2:
         
         ke, wacc = calcular_wacc(rf, beta, rm, riesgo_pais, kd, tasa_tax, peso_e)
         
-        st.markdown(f"<div class='metric-box'><b>Costo del Capital Propio (Ke) vía CAPM:</b> {ke*100:.2f}%</div>", unsafe_allowed_html=True)
+        st.markdown(f"<div class='metric-box'><b>Costo del Capital Propio (Ke) vía CAPM:</b> {ke*100:.2f}%</div>", unsafe_allow_html=True)
         st.metric("TASA WACC RESULTANTE (Descuento)", f"{wacc*100:.2f}%")
         
     with col_dcf:
@@ -154,14 +153,14 @@ with tab2:
         <span style='font-size:22px; font-weight:bold; color:#0d47a1;'>${st.session_state.enterprise_value:,.2f}</span><br>
         <small>VP Flujos Explícitos: ${vp_flujosp:,.2f} | VP Valor Terminal: ${vp_valor_terminal:,.2f}</small>
         </div>
-        """, unsafe_allowed_html=True)
+        """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------
 # PESTAÑA 3: HUB DE CONSULTORÍA TRIBUTARIA (NIC 12 & LRTI)
 # ---------------------------------------------------------------------
 with tab3:
     st.header("⚖️ Unidad Especial de Impuestos Diferidos y Conciliación (NIC 12)")
-    st.markdown("<p class='section-desc'>Módulo analítico fiscal para identificar pasivos latentes y optimizar el escudo fiscal según la LRTI.</p>", unsafe_allowed_html=True)
+    st.markdown("<p class='section-desc'>Módulo analítico fiscal para identificar pasivos latentes y optimizar el escudo fiscal según la LRTI.</p>", unsafe_allow_html=True)
     
     col_tax1, col_tax2 = st.columns([1, 2])
     with col_tax1:
@@ -216,7 +215,7 @@ with tab3:
 # PESTAÑA 4: REPORTE EJECUTIVO PARA DIRECTORIOS Y COMITÉS
 # ---------------------------------------------------------------------
 with tab4:
-    st.markdown("<div class='report-title'>INFORME ESTRATÉGICO DE VALORACIÓN INTEGRAL Y VIABILIDAD FINANCIERA</div>", unsafe_allowed_html=True)
+    st.markdown("<div class='report-title'>INFORME ESTRATÉGICO DE VALORACIÓN INTEGRAL Y VIABILIDAD FINANCIERA</div>", unsafe_allow_html=True)
     st.markdown("**Destinatarios:** Directorio, Comités Ejecutivos y Bancos de Inversión ESTRUCTURADORES DE LA IPO")
     st.divider()
     
@@ -231,21 +230,21 @@ with tab4:
         <small>VALORACIÓN CORPORATIVA DE NEGOCIO EN MARCHA (DCF)</small><br>
         <span style='font-size:24px; font-weight:bold; color:#2c3e50;'>${ev_final:,.2f}</span>
         </div>
-        """, unsafe_allowed_html=True)
+        """, unsafe_allow_html=True)
     with rep_c2:
         st.markdown(f"""
         <div class='metric-box'>
         <small>VALOR RAZONABLE DE ACTIVOS NETOS E INDEPENDIENTES (NIIF 13)</small><br>
         <span style='font-size:24px; font-weight:bold; color:#2c3e50;'>${tot_activos_razonable:,.2f}</span>
         </div>
-        """, unsafe_allowed_html=True)
+        """, unsafe_allow_html=True)
     with rep_c3:
         st.markdown(f"""
         <div class='metric-box' style='border-left-color: #2ecc71;'>
         <small>VALOR ESTIMADO PRE-MONEY INTEGRAL SUGERIDO</small><br>
         <span style='font-size:24px; font-weight:bold; color:#27ae60;'>${val_total_combinado:,.2f}</span>
         </div>
-        """, unsafe_allowed_html=True)
+        """, unsafe_allow_html=True)
         
     st.subheader("📝 Notas del Comité Financiero y Fiscal Extendido")
     st.info(f"""
