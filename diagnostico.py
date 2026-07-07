@@ -116,7 +116,7 @@ with tab1:
 # ---------------------------------------------------------------------
 with tab2:
     st.header("⚙️ Motor de Valoración por Flujo de Caja Descontado (DCF)")
-    st.markdown("<p class='section-desc'>Algoritmo de cálculo de tasa WACC mediante CAPM y proyección de flujos para cotización bursátil.</p>", unsafe_allowed_html=True)
+    st.markdown("<p class='section-desc'>Algoritmo de cálculo de tasa WACC mediante CAPM y proyección de flujos para cotización bursátil.</p>", unsafe_allow_html=True)
     
     col_wacc, col_dcf = st.columns(2)
     
