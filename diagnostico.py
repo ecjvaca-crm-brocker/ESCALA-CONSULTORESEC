@@ -10,13 +10,14 @@ st.set_page_config(page_title="Premium Valuation & Tax Hub", layout="wide", page
 st.title("📈 Ecosistema Escala Corporate: Premium Valuation & Tax Hub")
 st.caption("Módulo Avanzado de Valoración de Activos e Inteligencia Fiscal para Alta Gerencia y Comités Ejecutivos (Normas NIIF / IFRS y LRTI)")
 
+# CORRECCIÓN AQUÍ: Usamos st.markdown y unsafe_allow_html en inglés estricto
 st.markdown("""
     <style>
     .metric-box {background-color: #f8f9fa; border-left: 5px solid #1f77b4; padding: 15px; border-radius: 4px; margin-bottom: 15px;}
     .report-title {font-size: 24px; font-weight: bold; color: #1e3d59; margin-top: 20px;}
     .section-desc {color: #555555; font-size: 14px; margin-bottom: 20px;}
     </style>
-""", unsafe_allowed_html=True)
+""", unsafe_allow_html=True)
 
 # =====================================================================
 # INICIALIZACIÓN DE ESTADOS GLOBALES (Persistencia del Pipeline)
@@ -31,10 +32,10 @@ if 'enterprise_value' not in st.session_state:
     st.session_state.enterprise_value = 0.0
 
 if 'tasa_fiscal_ecuador' not in st.session_state:
-    st.session_state.tasa_fiscal_ecuador = 25.0  # Tasa base LRTI aplicable a diferidos
+    st.session_state.tasa_fiscal_ecuador = 25.0
 
 # =====================================================================
-# NÚCLEO DE LÓGICA Y CÁLCULOS (Desacoplado de la UI)
+# NÚCLEO DE LÓGICA Y CÁLCULOS
 # =====================================================================
 def calcular_wacc(rf, beta, rm, riesgo_pais, kd, tasa_tax, peso_e):
     ke = rf + beta * (rm - rf) + riesgo_pais
@@ -143,8 +144,6 @@ with tab2:
         g_perpetuidad = st.slider("Tasa de Crecimiento a Perpetuidad (g %)", 0.5, 5.0, 2.0) / 100
         
         df_flujos, vp_flujosp, vp_valor_terminal, enterprise_value = proyectar_dcf(fcl_año1, growth_tasa, g_perpetuidad, wacc)
-        
-        # Sincronizar con el estado global para uso en la pestaña de reportes
         st.session_state.enterprise_value = enterprise_value
         
         st.dataframe(df_flujos.style.format({'Flujo Proyectado': '${:,.2f}', 'Factor Descuento': '{:.4f}', 'Valor Presente': '${:,.2f}'}), use_container_width=True)
@@ -168,7 +167,6 @@ with tab3:
     with col_tax1:
         st.subheader("Cálculo de Diferencias Temporarias")
         
-        # Selección de tasa de impuesto real
         st.session_state.tasa_fiscal_ecuador = st.number_input("Tasa Impuesto a la Renta Corporativa (Ecuador %)", value=25.0, step=1.0)
         tasa_calculo = st.session_state.tasa_fiscal_ecuador / 100
 
@@ -185,7 +183,6 @@ with tab3:
             diferencia = base_contable - base_fiscal
             es_superavit_reval = "Revaluación" in concepto_fiscal
             
-            # Determinación lógica de tipo de impuesto diferido bajo NIC 12
             tipo_id = "Pasivo Diferido" if (diferencia > 0 and es_superavit_reval) or (diferencia < 0 and not es_superavit_reval) else "Activo Diferido"
             impuesto_calc = abs(diferencia) * tasa_calculo
             
@@ -223,12 +220,10 @@ with tab4:
     st.markdown("**Destinatarios:** Directorio, Comités Ejecutivos y Bancos de Inversión ESTRUCTURADORES DE LA IPO")
     st.divider()
     
-    # Recuperación limpia y segura de los datos globales en sesión
     ev_final = st.session_state.enterprise_value
     tot_activos_razonable = st.session_state.activos_tangibles['Valor Razonable'].sum() if not st.session_state.activos_tangibles.empty else 0.0
     val_total_combinado = ev_final + tot_activos_razonable
     
-    # Bloque de Métricas Críticas para la Toma de Decisiones de Alta Gerencia
     rep_c1, rep_c2, rep_c3 = st.columns(3)
     with rep_c1:
         st.markdown(f"""
